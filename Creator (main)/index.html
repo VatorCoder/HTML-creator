@@ -52,6 +52,8 @@
             margin-bottom: 20px;
         }
     </style>
+    
+    
 </head>
 <body>
     <div class="nav-buttons">
@@ -69,7 +71,7 @@
             <button onclick="saveFile()">Upload changes.</button>
         </div>
     </div>
-
+    <label for="language-selector">Choose a language:</label> <select id="language-selector" title="Language Selector"> <option value="python">Python</option> <option value="javascript">JavaScript</option> <option value="java">Java</option> <!-- Add more languages as needed --> </select>
     <script>
         function openFile(event) {
             const input = event.target;
@@ -93,6 +95,34 @@
             anchor.click();
             document.body.removeChild(anchor);
         }
+    </script>
+    <script>
+        document.getElementById('language-selector').addEventListener('change', function() {
+    let selectedLanguage = this.value;
+    // Handle language-specific code generation here
+    console.log(`Selected language: ${selectedLanguage}`);
+});
+
+    </script>
+    <script>
+        function generateCode(language) {
+    switch(language) {
+        case 'python':
+            return `print("Hello, World!")`;
+        case 'javascript':
+            return `console.log("Hello, World!");`;
+        // Add more languages as needed
+        default:
+            return `// Code generation not available for the selected language`;
+    }
+}
+
+document.getElementById('language-selector').addEventListener('change', function() {
+    let selectedLanguage = this.value;
+    let codeSnippet = generateCode(selectedLanguage);
+    console.log(codeSnippet);
+});
+
     </script>
 </body>
 </html>
