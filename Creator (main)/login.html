@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-container {
+            width: 80%;
+            max-width: 400px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Log In</h1>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="logIn()">Log In</button>
+    </div>
+
+    <script>
+        function logIn() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const storedPassword = localStorage.getItem(username);
+
+            if (password === storedPassword) {
+                alert('Log in successful!');
+                window.location.href = 'index.html';
+            } else {
+                alert('Invalid username or password!');
+            }
+        }
+    </script>
+</body>
+</html>

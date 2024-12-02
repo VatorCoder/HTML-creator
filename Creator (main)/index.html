@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code creator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .editor-container {
+            width: 80%;
+            max-width: 800px;
+        }
+        textarea {
+            width: 100%;
+            height: 400px;
+            padding: 10px;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons">
+        <button onclick="window.location.href='signup.html'">Sign Up</button>
+        <button onclick="window.location.href='login.html'">Log In</button>
+    </div>
+    <div class="editor-container">
+        <h1>Code creator</h1>
+        <textarea id="codeArea" placeholder="Write your code here..."></textarea>
+        <div class="buttons">
+            <label for="fileInput" class="button-label">
+                <button onclick="document.getElementById('fileInput').click()">Open File</button>
+                <input type="file" id="fileInput" onchange="openFile(event)">
+            </label>
+            <button onclick="saveFile()">Upload changes.</button>
+        </div>
+    </div>
+
+    <script>
+        function openFile(event) {
+            const input = event.target;
+            const reader = new FileReader();
+            reader.onload = function(){
+                const text = reader.result;
+                document.getElementById('codeArea').value = text;
+            };
+            reader.readAsText(input.files[0]);
+        }
+
+        function saveFile() {
+            const text = document.getElementById('codeArea').value;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const anchor = document.createElement('a');
+            anchor.download = 'code.txt';
+            anchor.href = window.URL.createObjectURL(blob);
+            anchor.target = '_blank';
+            anchor.style.display = 'none'; // just to be safe!
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+        }
+    </script>
+</body>
+</html>
